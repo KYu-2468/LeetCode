@@ -23,7 +23,6 @@ var arrayRankTransform = function(arr) {
         }
         
         if(value > previousValue) {
-            console.log(rank)
             newArr[originalIndex] = ++rank;
         } else {
             newArr[originalIndex] = rank;
