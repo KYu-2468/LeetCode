@@ -3,11 +3,11 @@
  * @return {number}
  */
 var climbStairs = function(n) {
-    const waysToClimb = [0, 1, 2];
+    const arr = [0, 1, 2];
     
     for(let i = 3; i <= n; i++) {
-        waysToClimb.push(waysToClimb[i - 1] + waysToClimb[i - 2]);
+        arr.push(arr[i - 1] + arr[i - 2]);
     }
     
-    return waysToClimb[n];
+    return arr[n];
 };
