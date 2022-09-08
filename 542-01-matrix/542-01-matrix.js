@@ -30,90 +30,39 @@ class QueueObj {
 
 var updateMatrix = function(mat) {
     const queue = [];
-    let queueHead = 0;
+    let head = 0;
     
-    for(let i = 0; i < mat.length; i++) {
-        
-        for(let j = 0; j < mat[0].length; j++) {
+    for(let r = 0; r < mat.length; r++) {
+        for(let c = 0; c < mat[0].length; c++) {
             
-            if(mat[i][j] === 0) {
-                
-                queue.push([i, j]);
-                
+            if(mat[r][c] === 1) {
+                mat[r][c] = Infinity;
             } else {
-                
-                mat[i][j] = Number.MAX_VALUE;   
+                queue.push([r, c]);
+            }
+        }
+    }
+    
+    const checkNeighbor = (r, c, val) => {
+        if(r >= 0 && r < mat.length && c >= 0 && c < mat[0].length) {
+            if(mat[r][c] > val) {
+                mat[r][c] = val;
+                queue.push([r, c])
             }
             
         }
     }
     
-    const dir = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-    
-    while(queueHead < queue.length) {
+    while(head < queue.length) {
+        const [r, c] = queue[head];
         
-        const [row, col] = queue[queueHead];
+        checkNeighbor(r + 1, c, mat[r][c] + 1);
+        checkNeighbor(r - 1, c, mat[r][c] + 1);
+        checkNeighbor(r, c + 1, mat[r][c] + 1);
+        checkNeighbor(r, c - 1, mat[r][c] + 1);
         
-        dir.forEach(dir => {
-            const [r, c] = dir;
-            
-            if(row + r >= 0 && row + r < mat.length && col + c >= 0 && col + c < mat[0].length) {
-                
-                if(mat[row][col] + 1 < mat[row + r][ col + c]) {
-                    mat[row + r][col + c] = mat[row][col] + 1;
-                    queue.push([row + r, col + c]);
-                }
-                
-            }
-        })
-        
-        queueHead++;
+        head++;
     }
-    
-    return mat;
-    
-//     const findClosest = (row, col) => {
-//         const queue = [[row, col, 0]];
-//         let head = 0;
-        
-        
-//         while(head < queue.length) {
-//             const [r, c, distance] = queue[head];
-            
-//             if(r >= 0 && r < mat.length && c >= 0 && c < mat[0].length) {
-                
-//                 if(mat[r][c] !== 0) {
-//                     queue.push([r + 1, c, distance + 1]);
-//                     queue.push([r - 1, c, distance + 1]);
-//                     queue.push([r, c + 1, distance + 1]);
-//                     queue.push([r, c - 1, distance + 1]);
-//                 } else {
-//                     return distance;
-//                 }
-//             }
-            
-//             head++;
-//         }
-//     }
-        
-//     const queue = [];
-//     let head = 0;
-    
-//     for(let r = 0; r < mat.length; r++) {
-//         for(let c = 0; c < mat[0].length; c++) {
-            
-//             if(mat[r][c] === 1) {
-//                 mat[r][c] = Infinity;
-//                 queue.push([r, c]);
-//             }
-//         }
-//     }
-    
-//     while(head < queue.length) {
-//         const [r, c] = queue[head];
-//         mat[r][c] = findClosest(r, c);
-//         head++;
-//     }
    
-//     return mat;
+    return mat;
 };
