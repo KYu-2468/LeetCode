@@ -3,53 +3,16 @@
  * @param {number} k
  * @return {number[][]}
  */
-var combine = function(n, k) {
-    const comb = [];
+var combine = function(n, k, result = [], sub = [], start = 1) {
+    if(sub.length === k) {
+        result.push(sub);
+        return;
+    }
     
-    findComb(1,[], comb, n, k);
+    for(let i = start; i <= n; i++) {
+        combine(n, k, result, [...sub, i], i + 1);
+    }
     
-    return comb;
+    return result;
 };
 
-const findComb = (currentNum, currentComb = [], comb, n, k) => {
-    
-    if(currentNum === n) {
-        
-        if(currentComb.length + 1 === k) {
-            comb.push([...currentComb, currentNum]);
-        }
-        
-        return;
-    }
-    
-    findComb(currentNum + 1, [...currentComb], comb, n, k);
-    
-    if(currentComb.length + 1 === k) {
-        comb.push([...currentComb, currentNum]);
-        return;
-    }
-    
-    findComb(currentNum + 1, [...currentComb, currentNum], comb, n, k);
-}
-
-// const findComb = (currentNum, currentComb = [], comb, n, k) => {
-//     const addedComb = [...currentComb, currentNum];
-    
-//     if(currentNum === n) {
-        
-//         if(addedComb.length === k) {
-//             comb.push(addedComb);
-//         }
-        
-//         return;
-//     }
-    
-//     findComb(currentNum + 1, [...currentComb], comb, n, k);
-    
-//     if(currentComb.length + 1 === k) {
-//         comb.push([...addedComb]);
-//         return;
-//     }
-    
-//     findComb(currentNum + 1, [...addedComb], comb, n, k);
-// }
