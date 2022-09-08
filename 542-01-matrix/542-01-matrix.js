@@ -49,7 +49,6 @@ var updateMatrix = function(mat) {
                 mat[r][c] = val;
                 queue.push([r, c])
             }
-            
         }
     }
     
