@@ -29,11 +29,9 @@ var searchMatrix = function(matrix, target) {
     
     while(left <= right) {
         const mid = Math.floor((right + left) / 2);
-        console.log(mid)
         if(matrix[row][mid] === target) {
             return true;
         } else if(matrix[row][mid] < target) {
-            console.log('hit', mid, right)
             left = mid + 1;
         } else {
             right = mid - 1;
