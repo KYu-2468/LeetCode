@@ -15,7 +15,6 @@ var specialArray = function(nums) {
     while(left <= right) {
         const mid = Math.floor((right + left) / 2);
         const numOfLarger = nums.length - mid;
-        console.log(numOfLarger)
         if((numOfLarger === nums[mid] && numOfLarger > nums[mid - 1]) || (numOfLarger > nums[mid - 1] && numOfLarger < nums[mid])) {
             return numOfLarger;
         } else if(numOfLarger > nums[mid]) {
