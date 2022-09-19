@@ -11,13 +11,13 @@
  * @return {TreeNode}
  */
 
-// class TreeNode {
-//     constructor(val, left, right) {
-//         this.val = (val===undefined ? 0 : val);
-//         this.left = (left===undefined ? null : left);
-//         this.right = (right===undefined ? null : right);
-//     }
-// }
+class TreeNode {
+    constructor(val, left, right) {
+        this.val = (val===undefined ? 0 : val);
+        this.left = (left===undefined ? null : left);
+        this.right = (right===undefined ? null : right);
+    }
+}
 
 // var sortedArrayToBST = function(nums) {
     
@@ -44,7 +44,7 @@ var sortedArrayToBST = function(nums, start = 0, end = nums.length - 1) {
     const mid = Math.floor((start + end) / 2);
     const root = new TreeNode(nums[mid]);
     
-    if(start === end) return root;
+    // if(start === end) return root;
     
     root.left = sortedArrayToBST(nums, start, mid - 1);
     root.right = sortedArrayToBST(nums, mid + 1, end);
