@@ -17,9 +17,7 @@ var lowestCommonAncestor = function(root, p, q) {
     let curNode = root;
     
     while(curNode) {
-        if(curNode.val === p.val || curNode.val === q.val) {
-            return curNode;
-        } else if (p.val > curNode.val && q.val > curNode.val) {
+        if (p.val > curNode.val && q.val > curNode.val) {
             curNode = curNode.right;
         } else if (p.val < curNode.val && q.val < curNode.val) {
             curNode = curNode.left;
@@ -27,6 +25,20 @@ var lowestCommonAncestor = function(root, p, q) {
             return curNode;
         }
     }
+    
+//     let curNode = root;
+    
+//     while(curNode) {
+//         if(curNode.val === p.val || curNode.val === q.val) {
+//             return curNode;
+//         } else if (p.val > curNode.val && q.val > curNode.val) {
+//             curNode = curNode.right;
+//         } else if (p.val < curNode.val && q.val < curNode.val) {
+//             curNode = curNode.left;
+//         } else {
+//             return curNode;
+//         }
+//     }
     
     
     // if(root.val === p.val || root.val === q.val) {
