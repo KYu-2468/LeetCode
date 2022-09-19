@@ -19,7 +19,7 @@
 //     }
 // }
 
-var sortedArrayToBST_1 = function(nums) {
+var sortedArrayToBST = function(nums) {
     
     if(nums.length === 0) return null;
     
@@ -38,19 +38,19 @@ const recurWithSlice = (nums) => {
     console.log(performance.now() - start);
 }
 
-var sortedArrayToBST = function(nums, start = 0, end = nums.length - 1) {
-    if(start > end) return null;
+// var sortedArrayToBST = function(nums, start = 0, end = nums.length - 1) {
+//     if(start > end) return null;
     
-    const mid = Math.floor((start + end) / 2);
-    const root = new TreeNode(nums[mid]);
+//     const mid = Math.floor((start + end) / 2);
+//     const root = new TreeNode(nums[mid]);
     
-    if(start === end) return root;
+//     if(start === end) return root;
     
-    root.left = sortedArrayToBST(nums, start, mid - 1);
-    root.right = sortedArrayToBST(nums, mid + 1, end);
+//     root.left = sortedArrayToBST(nums, start, mid - 1);
+//     root.right = sortedArrayToBST(nums, mid + 1, end);
     
-    return root;
-};
+//     return root;
+// };
 
 const recurWithPointer = (nums) => {
     const start = performance.now();
