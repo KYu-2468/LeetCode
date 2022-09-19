@@ -19,7 +19,7 @@
 //     }
 // }
 
-var sortedArrayToBST = function(nums, start = 0, end = nums.length - 1) {
+var sortedArrayToBST = function(nums) {
     
     if(nums.length === 0) return null;
     
@@ -38,7 +38,7 @@ const recurWithSlice = (nums) => {
     console.log(performance.now() - start);
 }
 
-var sortedArrayToBST_1 = function(nums, start, end) {
+var sortedArrayToBST = function(nums, start = 0, end = nums.length - 1) {
     if(start > end) return null;
     
     const mid = Math.floor((start + end) / 2);
