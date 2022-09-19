@@ -19,7 +19,7 @@
 //     }
 // }
 
-var sortedArrayToBST = function(nums) {
+var sortedArrayToBST_1 = function(nums) {
     
     if(nums.length === 0) return null;
     
