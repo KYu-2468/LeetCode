@@ -3,16 +3,20 @@
  * @param {number} k
  * @return {number[][]}
  */
-var combine = function(n, k, result = [], sub = [], start = 1) {
-    if(sub.length === k) {
-        result.push(sub);
-        return;
-    }
-    
-    for(let i = start; i <= n; i++) {
-        combine(n, k, result, [...sub, i], i + 1);
-    }
-    
-    return result;
-};
+const combine = (n, k) => {
+    const results = [];
 
+    const backtrack = (arr, index) => {
+        // base case
+        if (arr.length === k) {
+            results.push(arr);
+            return;
+        }
+        for(let i = index; i <= n; i++) {
+            backtrack([...arr, i], i + 1); 
+        }
+    }
+
+    backtrack([], 1);
+    return results;
+}
