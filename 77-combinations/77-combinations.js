@@ -8,13 +8,16 @@ const combine = (n, k) => {
 
     const backtrack = (arr, index) => {
         // base case
+        
         if (arr.length === k) {
             results.push(arr);
             return;
         }
-        for(let i = index; i <= n; i++) {
-            backtrack([...arr, i], i + 1);
-        }
+        
+        if(index > n) return;
+        
+        backtrack([...arr], index + 1);
+        backtrack([...arr, index], index + 1);
     }
 
     backtrack([], 1);
