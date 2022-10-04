@@ -4,6 +4,18 @@
  */
 var groupAnagrams = function(strs) {
     
+    let result = {};
+  for (let str of strs) {
+    const keys = new Array(26).fill(0);
+    for (let char of str) {
+      keys[char.charCodeAt(0) - 97] += 1; 
+    }
+    
+    if (!result[keys]) result[keys] = [];
+    result[keys].push(str);
+  }
+  return Object.values(result);
+    
     const root = {};
     const set = new Set();
     
