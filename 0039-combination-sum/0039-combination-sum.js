@@ -5,7 +5,7 @@
  */
 var combinationSum = function(candidates, target) {
     const result = [];
-    candidates.sort((a, b) => a - b);
+    // candidates.sort((a, b) => a - b);
     
     const backtrack = (index = 0, total = 0, comb = []) => {
         if(total > target) return;
