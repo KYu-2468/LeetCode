@@ -14,10 +14,10 @@ var reverseList = function(head) {
     let next = head ? head.next : null;
     let prev = null;
     while(cur) {
-        cur.next = prev
-        prev = cur
+        next = cur.next;
+        cur.next = prev;
+        prev = cur;
         cur = next;
-        next = cur ? cur.next : null;
     }
     return prev;
 };
