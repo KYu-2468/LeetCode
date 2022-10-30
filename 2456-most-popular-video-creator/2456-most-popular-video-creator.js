@@ -6,39 +6,33 @@
  */
 var mostPopularCreator = function(creators, ids, views) {
     const ans = [];
-    const map = {};
+    const mostPopular = {};
     let max = 0;
     
     for(let i = 0; i < ids.length; i++) {
-        if(!map[creators[i]]) {
-            map[creators[i]] = {
-                vids: [],
-                views: 0,
-            };
+        const name = creators[i], id = ids[i], view = views[i];
+        
+        if(!mostPopular[name]) {
+            mostPopular[name] = {id, view, total: 0};
         }
-        map[creators[i]].views += views[i];
-        map[creators[i]].vids.push([ids[i], views[i]]);
-        max = Math.max(max, map[creators[i]].views);
+        
+        let creator = mostPopular[name];
+        creator.total += view;
+        max = Math.max(max, creator.total);
+        
+        if(view > creator.view) {
+            creator.view = view;
+            creator.id = id;
+        } else if(view === creator.view) {
+            creator.id = creator.id < id ? creator.id : id;
+        }
     }
     
-    for(let creator in map) {
-        if(map[creator].views === max) {
-            map[creator].vids.sort(compare);
-            ans.push([creator, map[creator].vids[0][0]]);
-        }
-    }
-    
-    function compare(a, b) {
-        if(a[1] > b[1]) {
-            return -1;
-        } else if(a[1] < b[1]) {
-            return 1;
-        } else {
-            if(a[0] < b[0]) {
-                return -1;
-            } else {
-                return 1;
-            }
+    for(let name in mostPopular) {
+        const creator = mostPopular[name];
+        
+        if(creator.total === max) {
+            ans.push([name, creator.id])
         }
     }
     
