@@ -5,9 +5,10 @@
  * @return {string[][]}
  */
 var mostPopularCreator = function(creators, ids, views) {
+    // 
     const ans = [];
     const mostPopular = {};
-    let max = 0;
+    let maxView = 0;
     
     for(let i = 0; i < ids.length; i++) {
         const name = creators[i], id = ids[i], view = views[i];
@@ -18,7 +19,7 @@ var mostPopularCreator = function(creators, ids, views) {
         
         let creator = mostPopular[name];
         creator.total += view;
-        max = Math.max(max, creator.total);
+        maxView = Math.max(maxView, creator.total);
         
         if(view > creator.view) {
             creator.view = view;
@@ -31,7 +32,7 @@ var mostPopularCreator = function(creators, ids, views) {
     for(let name in mostPopular) {
         const creator = mostPopular[name];
         
-        if(creator.total === max) {
+        if(creator.total === maxView) {
             ans.push([name, creator.id])
         }
     }
