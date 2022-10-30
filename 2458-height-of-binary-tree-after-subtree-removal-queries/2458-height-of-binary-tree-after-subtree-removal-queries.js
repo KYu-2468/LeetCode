@@ -12,100 +12,100 @@
  * @return {number[]}
  */
 
-class Maxheap {
-    constructor() {
-        this.heap = [];
-    }
+// class Maxheap {
+//     constructor() {
+//         this.heap = [];
+//     }
     
-    insert(height, nodeVal) {
-        this.heap.push([height, nodeVal]);
-        this.siftUp(this.heap.length - 1);
-    }
+//     insert(height, nodeVal) {
+//         this.heap.push([height, nodeVal]);
+//         this.siftUp(this.heap.length - 1);
+//     }
     
-    remove() {
-        const popped = this.heap[0];
-        const last = this.heap.pop();
-        if(this.heap.length === 0) return;
-        this.heap[0] = last;
-        this.siftDown(0);
-        return popped;
-    }
+//     remove() {
+//         const popped = this.heap[0];
+//         const last = this.heap.pop();
+//         if(this.heap.length === 0) return;
+//         this.heap[0] = last;
+//         this.siftDown(0);
+//         return popped;
+//     }
     
-    siftUp(index) {
-        let parentIdx = this.getParent(index);
-        while(parentIdx !== null) {
-          if(this.heap[index][0] <= this.heap[parentIdx][0]) break;
-          this.swap(index, parentIdx);
-          index = parentIdx;
-          parentIdx = this.getParent(index);
-        }
-    }
+//     siftUp(index) {
+//         let parentIdx = this.getParent(index);
+//         while(parentIdx !== null) {
+//           if(this.heap[index][0] <= this.heap[parentIdx][0]) break;
+//           this.swap(index, parentIdx);
+//           index = parentIdx;
+//           parentIdx = this.getParent(index);
+//         }
+//     }
     
-    siftDown(idx) {
-        let leftIdx = this.getLeft(idx);
-        let rightIdx = this.getRight(idx);
+//     siftDown(idx) {
+//         let leftIdx = this.getLeft(idx);
+//         let rightIdx = this.getRight(idx);
 
-        while(leftIdx) {
+//         while(leftIdx) {
 
-          if(this.heap[leftIdx][0] <= this.heap[idx][0] && (!rightIdx || this.heap[rightIdx][0] <= this.heap[idx][0])) break;
+//           if(this.heap[leftIdx][0] <= this.heap[idx][0] && (!rightIdx || this.heap[rightIdx][0] <= this.heap[idx][0])) break;
 
-          if(!rightIdx) {
-            this.swap(idx, leftIdx);
-            break;
-          }
+//           if(!rightIdx) {
+//             this.swap(idx, leftIdx);
+//             break;
+//           }
 
-          if(this.heap[leftIdx][0] >= this.heap[rightIdx][0]) {
-            this.swap(idx, leftIdx);
-            idx = leftIdx;
-          } else {
-            this.swap(idx, rightIdx);
-            idx = rightIdx;
-          }
+//           if(this.heap[leftIdx][0] >= this.heap[rightIdx][0]) {
+//             this.swap(idx, leftIdx);
+//             idx = leftIdx;
+//           } else {
+//             this.swap(idx, rightIdx);
+//             idx = rightIdx;
+//           }
 
-          leftIdx = this.getLeft(idx);
-          rightIdx = this.getRight(idx);
-        }
-      }
+//           leftIdx = this.getLeft(idx);
+//           rightIdx = this.getRight(idx);
+//         }
+//       }
     
-    getParent(index) {
-        if(index === 0) return null;
-        const idx = Math.floor((index - 1) / 2);
-        return idx;
-    }
+//     getParent(index) {
+//         if(index === 0) return null;
+//         const idx = Math.floor((index - 1) / 2);
+//         return idx;
+//     }
     
-    getLeft(index) {
-        const idx = 2 * index + 1;
-        if(idx >= this.heap.length) return null;
-        return idx;
-    }
+//     getLeft(index) {
+//         const idx = 2 * index + 1;
+//         if(idx >= this.heap.length) return null;
+//         return idx;
+//     }
     
-    getRight(index) {
-        const idx = 2 * index + 2;
-        if(idx >= this.heap.length) return null;
-        return idx;
-    }
+//     getRight(index) {
+//         const idx = 2 * index + 2;
+//         if(idx >= this.heap.length) return null;
+//         return idx;
+//     }
     
-    swap(i, j) {
-        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
-    }
+//     swap(i, j) {
+//         [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+//     }
     
-    peek() {
-        return this.heap[0];
-    }
-}
+//     peek() {
+//         return this.heap[0];
+//     }
+// }
 
 var treeQueries = function(root, queries) {
     const nodes = {};
-    const maxHeaps = new Array(10 ** 5);
+    const maxHeaps = [];
     const result = [];
-    
-    for(let i = 0; i < maxHeaps.length; i++) {
-        maxHeaps[i] = [];
-    }
     
     const getDepth = (node, level) => {
         let max;
         if(!node) return -1;
+        
+        if(!maxHeaps[level]) {
+            maxHeaps[level] = [];
+        }
         
         if(!node.left && !node.right) {
             nodes[node.val] = level;
