@@ -100,7 +100,7 @@ var treeQueries = function(root, queries) {
     const result = [];
     
     for(let i = 0; i < maxHeaps.length; i++) {
-        maxHeaps[i] = new Maxheap();
+        maxHeaps[i] = [];
     }
     
     const getDepth = (node, level) => {
@@ -109,7 +109,7 @@ var treeQueries = function(root, queries) {
         
         if(!node.left && !node.right) {
             nodes[node.val] = level;
-            maxHeaps[level].insert(0, node.val);
+            maxHeaps[level].push([0, node.val]);
             return 0;
         }
         
@@ -118,29 +118,36 @@ var treeQueries = function(root, queries) {
         max = Math.max(leftDepth, rightDepth); // dangerous
         
         nodes[node.val] = level;
-        maxHeaps[level].insert(max, node.val);
+        maxHeaps[level].push([max, node.val]);
         
         return Math.max(leftDepth, rightDepth);
     }
     
     getDepth(root, 0);
-    
+    for(let arr of maxHeaps) {
+        arr.sort((a, b) => {
+            if(a[0] > b[0]) {
+                return -1;
+            } else if(b[0] > a[0]) {
+                return 1;
+            } else {
+                return a[1] < b[1]? -1 : 1;
+            }
+        });
+    }
+    console.log(maxHeaps);
     for(let q of queries) {
         const level = nodes[q];
-        const rt = maxHeaps[level].peek();
-        let removed = false;
-        // console.log(q, maxHeaps[level])
-        if(rt[1] === q) {
-            removed = true;
-            maxHeaps[level].remove();
+        const rt = maxHeaps[level][0];
+        
+        if(rt[1] !== q) {
+            result.push(level + rt[0])
+        } else if(maxHeaps[level].length === 1) {
+            result.push(level - 1)
+        } else {
+            result.push(level + maxHeaps[level][1][0])
         }
         
-        const newRT = maxHeaps[level].peek();
-        
-        // console.log(q, newRT)
-        if(removed) maxHeaps[level].insert(...rt);
-        if(!newRT) result.push(level - 1);
-        else result.push(level + newRT[0]);
     }
     
     return result;
