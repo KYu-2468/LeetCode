@@ -6,11 +6,15 @@
 
 // Helper function that sums the digits of input num
 const sumDigit = (num) => {
-    // convert num to string
     let sum = 0;
     
+    // Loop till num = 0
     while(num) {
+        
+        // Add last digit of num to sum
         sum += num % 10;
+        
+        // Remove last digit of num
         num = Math.floor(num / 10);
     }
     
@@ -18,8 +22,13 @@ const sumDigit = (num) => {
 }
 
 var makeIntegerBeautiful = function(n, target) {
-    let initSum = sumDigit(n);
+    
+    // Get initial sum
+    const initSum = sumDigit(n);
+    
+    // Initialize current sum
     let curSum = initSum;
+    
     let totalAdd = "";
     
     if(initSum <= target) {
