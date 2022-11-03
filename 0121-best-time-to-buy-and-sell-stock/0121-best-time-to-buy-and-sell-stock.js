@@ -4,15 +4,19 @@
  */
 var maxProfit = function(prices) {
     let max = 0;
-    let sell = prices.length - 1;
+    let buy = prices[0];
+    let sell = 0;
     
-    for(let i = sell; i >= 0; i--) {
-        if(prices[i] < prices[sell]) {
-            max = Math.max(max, prices[sell] - prices[i]);
-        } else {
-            sell = i;
+    for(let price of prices) {
+        if(price < buy) {
+            buy = price;
+            sell = 0;
+        } else if(price > buy && price > sell) {
+            sell = price;
+            max = Math.max(max, sell - buy);
         }
     }
+    
     
     return max;
 };
