@@ -12,7 +12,7 @@ var spiralOrder = function(matrix) {
         
         if(matrix.length === 0 || matrix[0].length === 0) break
         // from up to down
-            result.push(...matrix.map(x => x.pop()))
+        result.push(...matrix.map(x => x.pop()))
         
         if(matrix.length === 0 || matrix[0].length === 0) break
         // from right to left
@@ -23,11 +23,6 @@ var spiralOrder = function(matrix) {
         // from down to up
         result.push(...matrix.map(x => x.shift()).reverse());
     }
-    
-    
-    
-    console.log(result)
-    console.log(matrix);
     
     return result;
     // for(let i = 1; i < matrix.length; i++) {
