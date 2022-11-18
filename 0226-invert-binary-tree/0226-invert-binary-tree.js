@@ -11,17 +11,11 @@
  * @return {TreeNode}
  */
 var invertTree = function(root) {
-  let queue = [root]
-
-  while (queue.length){
-    let curr = queue.shift()
-
-    if (curr == null) continue
-    
-    swapNodes(curr)
-    queue.push(curr.left)
-    queue.push(curr.right) 
-  }
+  if (!root) return root
+  swapNodes(root)
+  invertTree(root.left)
+  invertTree(root.right)
+  
   return root
 
 function swapNodes(curr){
