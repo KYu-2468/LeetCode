@@ -52,18 +52,19 @@ var calculate = function(s) {
         }
     }
     if (num !== "") stack.push(num);
-    console.log(stack);
     return +evaluate(stack);
 };
 
 function evaluate(arr) {
     let num = 0;
+    let i = 1;
     if (arr[0] === '-') {
-        arr[1] = -(+arr[1]);
-        arr.shift();
+        arr[0] = -(+arr[1]);
+        i = 2;
+        
     }
     
-    for (let i = 1; i < arr.length; i += 2) {
+    for (; i < arr.length; i += 2) {
         if (arr[i] === "+") {
             num += +arr[i + 1];
         } else {
@@ -71,6 +72,5 @@ function evaluate(arr) {
         }
     }
     num += +arr[0];
-    console.log(arr, num)
     return num + "";
 }
