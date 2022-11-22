@@ -11,21 +11,12 @@
  * @param {TreeNode} subRoot
  * @return {boolean}
  */
-var isSubtree = function(r, subroot) {
+var isSubtree = function(root, subroot) {
+    if (!subroot) return true;
+    if (!root) return false;
+    if (root.val === subroot.val && comparison(root, subroot)) return true;
     
-    const traverse = (r) => {
-    let isValid;
-    if (r.val === subroot.val) {
-      isValid = comparison(r, subroot);
-      if (isValid) return true;
-    }
-    let isLeftValid = false, isRightValid = false;
-    if (r.left) isLeftValid = traverse(r.left);
-    if (r.right) isRightValid = traverse(r.right);
-    return isLeftValid || isRightValid;
-  }
-
-  return traverse(r);
+    return isSubtree(root.left, subroot) || isSubtree(root.right, subroot);
 };
 
 function comparison(p,q) {
