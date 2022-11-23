@@ -33,7 +33,6 @@ var isValidSudoku = function(board) {
 
 function getSec(row, col) {
     const sec = 3 * Math.floor(row / 3) + Math.floor(col / 3);
-    console.log(sec, row, col);
     return sec;
 }
 
