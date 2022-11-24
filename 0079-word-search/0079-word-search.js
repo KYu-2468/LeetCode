@@ -47,11 +47,15 @@ const dfs = (board, word, row, col, visited = {}, index = 0) => {
     visited[`${row}-${col}`] = true;
     
     const checkRight = dfs(board, word, row, col + 1, visited, index + 1);
+    if (checkRight) return true;
     const checkLeft = dfs(board, word, row, col - 1, visited, index + 1);
+    if (checkLeft) return true;
     const checkUp = dfs(board, word, row + 1, col, visited, index + 1);
+    if (checkUp) return true;
     const checkDown = dfs(board, word, row - 1, col, visited, index + 1);
+    if (checkDown) return true;
     
     visited[`${row}-${col}`] = false;
     
-    return checkRight || checkLeft || checkUp || checkDown;
+    return false;
 }
