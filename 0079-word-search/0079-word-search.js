@@ -3,19 +3,25 @@
  * @param {string} word
  * @return {boolean}
  */
-const dirs = [ [-1, 0 ], [1, 0], [0, -1], [0, 1] ];
+// const dirs = [ [-1, 0 ], [1, 0], [0, -1], [0, 1] ];
 var exist = function(board, word) {
-    
-    if(board == null || word == null) return false;
-    const chars = word.split("");
-    for(let i = 0; i < board.length; i++){
-        for(let j = 0; j < board[i].length; j++){
-            if(match(board, i, j, chars, 0)){
-                return true;
-            }
+    for(let r = 0; r < board.length; r++) {
+        for(let c = 0; c < board[r].length; c++) {
+            if(board[r][c] === word[0] && dfs(board, word, r, c)) return true;
         }
     }
+    
     return false;
+    // if(board == null || word == null) return false;
+    // const chars = word.split("");
+    // for(let i = 0; i < board.length; i++){
+    //     for(let j = 0; j < board[i].length; j++){
+    //         if(match(board, i, j, chars, 0)){
+    //             return true;
+    //         }
+    //     }
+    // }
+    // return false;
 }
 
 function match(board, i, j, chars, index){
@@ -30,16 +36,6 @@ function match(board, i, j, chars, index){
     board[i][j] = chars[index];
     return result;
 }
-    
-    
-//     for(let r = 0; r < board.length; r++) {
-//         for(let c = 0; c < board[r].length; c++) {
-//             if(board[r][c] === word[0] && dfs(board, word, r, c)) return true;
-//         }
-//     }
-    
-//     return false;
-// };
 
 const dfs = (board, word, row, col, visited = {}) => {
     // console.log(row, col, word, visited)
