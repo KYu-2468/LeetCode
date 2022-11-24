@@ -37,22 +37,19 @@ function match(board, i, j, chars, index){
     return result;
 }
 
-const dfs = (board, word, row, col, visited = {}) => {
-    // console.log(row, col, word, visited)
-    if(word === '') return true;
+const dfs = (board, word, row, col, visited = {}, index = 0) => {
     
-    if(row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
+    if(index > word.length || row < 0 || row >= board.length || col < 0 || col >= board[row].length) return false;
     
-    if(board[row][col] !== word[0] || visited[`${row}-${col}`]) return false;
+    if(board[row][col] !== word[index] || visited[`${row}-${col}`]) return false;
+    if(index === word.length - 1) return true;
     
     visited[`${row}-${col}`] = true;
     
-    const newWord = word.slice(1);
-    
-    const checkRight = dfs(board, newWord, row, col + 1, visited);
-    const checkLeft = dfs(board, newWord, row, col - 1, visited);
-    const checkUp = dfs(board, newWord, row + 1, col, visited);
-    const checkDown = dfs(board, newWord, row - 1, col, visited);
+    const checkRight = dfs(board, word, row, col + 1, visited, index + 1);
+    const checkLeft = dfs(board, word, row, col - 1, visited, index + 1);
+    const checkUp = dfs(board, word, row + 1, col, visited, index + 1);
+    const checkDown = dfs(board, word, row - 1, col, visited, index + 1);
     
     visited[`${row}-${col}`] = false;
     
