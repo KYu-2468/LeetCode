@@ -34,7 +34,6 @@ var jobScheduling = function(startTime, endTime, profit) {
             }
         }
         if (s >= jobs[right][1]) left = right;
-        // console.log(i, left, right, dp)
         dp.push(Math.max(dp[dp.length - 1], dp[left] + p));
     }
     // console.log(dp)
