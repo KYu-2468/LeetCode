@@ -25,50 +25,32 @@
     
 //     return earliest;
 // };
+const Y = 'Y';
+const N = 'N';
+var bestClosingTime = function(customers) {
+    const dpy = new Array(customers.length).fill(-1);
+    const dpn = new Array(customers.length).fill(-1);
+    for (let i = 0; i < customers.length; ++i) {
+        const v = customers[i];
+        const isYCost = v === Y ? 0 : 1;
+        const isNCost = 1 - isYCost;
+        // case Y
+        dpy[i] = (i == 0 ? 0 : dpy[i-1]) + isYCost;
+        // casy N
+        dpn[i] = (i == 0 ? 0 : Math.min(dpy[i-1], dpn[i-1])) + isNCost;
+    }
+    if (dpn[customers.length - 1] > dpy[customers.length - 1] ) {
+        return customers.length;
+    }
 
-function Bisect() {
-    return { insort_right, insort_left, bisect_left, bisect_right }
-    function insort_right(a, x, lo = 0, hi = null) {
-        lo = bisect_right(a, x, lo, hi);
-        a.splice(lo, 0, x);
-    }
-    function bisect_right(a, x, lo = 0, hi = null) { // > upper_bound
-        if (lo < 0) throw new Error('lo must be non-negative');
-        if (hi == null) hi = a.length;
-        while (lo < hi) {
-            let mid = parseInt((lo + hi) / 2);
-            a[mid] > x ? hi = mid : lo = mid + 1;
+    let res = 0;
+    for (let i = customers.length - 1; i > -1; --i) {
+        if (dpn[i] < dpy[i]) {
+            if (i === 0 || dpn[i - 1] > dpy[i - 1]) {
+                res = i;
+                break;
+            }
         }
-        return lo;
     }
-    function insort_left(a, x, lo = 0, hi = null) {
-        lo = bisect_left(a, x, lo, hi);
-        a.splice(lo, 0, x);
-    }
-    function bisect_left(a, x, lo = 0, hi = null) { // >= lower_bound
-        if (lo < 0) throw new Error('lo must be non-negative');
-        if (hi == null) hi = a.length;
-        while (lo < hi) {
-            let mid = parseInt((lo + hi) / 2);
-            a[mid] < x ? lo = mid + 1 : hi = mid;
-        }
-        return lo;
-    }
-}
-////////////////////////////////////////////////////////////////
-
-const bestClosingTime = (s) => {
-    let n = s.length, a = [], b = [], d = [], bi = new Bisect();
-    for (let i = 0; i < n; i++) s[i] == 'Y' ? a.push(i) : b.push(i);
-    for (let j = 0; j <= n; j++) {
-        let leftN = bi.bisect_right(b, j - 1);
-        let rightY = a.length - bi.bisect_left(a, j);
-        let cnt = leftN + rightY;
-        d.push([cnt, j]);
-    }
-    d.sort((x, y) => {
-        if (x[0] != y[0]) return x[0] - y[0]; // less penalty comes first
-        return x[1] - y[1]; // same, comes smaller index
-    })
-    return d[0][1]
+    return res;
 };
