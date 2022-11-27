@@ -27,16 +27,13 @@ var jobScheduling = function(startTime, endTime, profit) {
             const mid = Math.floor((left + right) / 2);
             if (s < jobs[mid][1]) {
                 right = mid - 1;
+            } else if (left === mid){
+                break;
             } else {
-                if (left === mid) {
-                    if (s >= jobs[mid + 1][1]) {
-                        left++;
-                    }
-                    break;
-                }
                 left = mid;
             }
         }
+        if (s >= jobs[right][1]) left = right;
         // console.log(i, left, right, dp)
         dp.push(Math.max(dp[dp.length - 1], dp[left] + p));
     }
