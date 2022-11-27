@@ -25,32 +25,41 @@
     
 //     return earliest;
 // };
-const Y = 'Y';
-const N = 'N';
-var bestClosingTime = function(customers) {
-    const dpy = new Array(customers.length).fill(-1);
-    const dpn = new Array(customers.length).fill(-1);
-    for (let i = 0; i < customers.length; ++i) {
-        const v = customers[i];
-        const isYCost = v === Y ? 0 : 1;
-        const isNCost = 1 - isYCost;
-        // case Y
-        dpy[i] = (i == 0 ? 0 : dpy[i-1]) + isYCost;
-        // casy N
-        dpn[i] = (i == 0 ? 0 : Math.min(dpy[i-1], dpn[i-1])) + isNCost;
-    }
-    if (dpn[customers.length - 1] > dpy[customers.length - 1] ) {
-        return customers.length;
-    }
-
-    let res = 0;
-    for (let i = customers.length - 1; i > -1; --i) {
-        if (dpn[i] < dpy[i]) {
-            if (i === 0 || dpn[i - 1] > dpy[i - 1]) {
-                res = i;
-                break;
-            }
+function bestClosingTime(customers) {
+    let pen = 0;
+	
+	// Initialize with penalty for not closing the shop
+    for (let i = 0; i < customers.length; i += 1) {
+        const customer = customers.charAt(i) === "Y";
+        
+		// For each hour w/o customer, add penalty
+        if (!customer) {
+            pen += 1;
         }
     }
-    return res;
-};
+    
+    let minPen = pen; // For tracking the minimal penalty
+    let minH = customers.length; // Hour of minimal penalty so far
+    
+    for (let i = customers.length - 1; i >= 0; i -= 1) {
+        const customer = customers.charAt(i) === "Y";
+        
+		// If we're closing the shop on this hour:
+		
+		// If there is a customer, apply penalty
+        if (customer) {
+            pen += 1;
+		// Otherwise, compensate initial penalty
+        } else {
+            pen -= 1;
+        }
+        
+		// Less than or equals to since we need to find the first closing hour
+        if (pen <= minPen) {
+            minPen = pen;
+            minH = i;
+        }
+    }
+    
+    return minH;
+}
