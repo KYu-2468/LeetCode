@@ -40,6 +40,6 @@ var jobScheduling = function(startTime, endTime, profit) {
         // console.log(i, left, right, dp)
         dp.push(Math.max(dp[dp.length - 1], dp[left] + p));
     }
-    console.log(dp)
+    // console.log(dp)
     return dp[dp.length - 1];
 };
