@@ -3,10 +3,6 @@
  * @return {number}
  */
 var rob = function(nums) {
-    if(nums.length === 1) {
-        return nums[0]
-    }
-    
     const memo = [nums[0]];
     
     for (let i = 1; i < nums.length; i++) {
