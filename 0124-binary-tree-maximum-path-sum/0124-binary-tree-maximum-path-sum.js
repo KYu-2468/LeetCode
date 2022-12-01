@@ -18,7 +18,7 @@ var maxPathSum = function(root) {
         let left = Math.max(traverse(node.left), 0);
         let right = Math.max(traverse(node.right), 0);
         max = Math.max(max, node.val + left + right);
-        return Math.max(left + node.val, right + node.val);
+        return Math.max(left, right) + node.val;
     }
     traverse(root);
     
