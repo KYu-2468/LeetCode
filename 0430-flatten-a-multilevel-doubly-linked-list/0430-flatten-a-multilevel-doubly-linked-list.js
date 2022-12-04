@@ -19,15 +19,16 @@ var flatten = function(head) {
         if (curNode.child) {
             if (curNode.next) {
                 let child = curNode.child;
+                
                 while (child.next) {
                     child = child.next;
                 }
+                
                 curNode.next.prev = child;
                 child.next = curNode.next;
-                curNode.next = curNode.child;
-            } else {
-                curNode.next = curNode.child;
             }
+            
+            curNode.next = curNode.child;
             curNode.child.prev = curNode;
         }
         curNode.child = null;
