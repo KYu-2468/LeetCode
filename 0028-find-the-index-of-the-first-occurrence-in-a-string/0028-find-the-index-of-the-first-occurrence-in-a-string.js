@@ -4,17 +4,9 @@
  * @return {number}
  */
 var strStr = function(haystack, needle) {
-    
-    for (let i = 0; i < haystack.length; i++) {
-        if (haystack[i] === needle[0]) {
-            let str = haystack.slice(i, i + needle.length);
-            if (str === needle) {
-                return i;
-            }
-        }
-    }
-    
-    return -1;
+    if (needle === "") return 0;
+    if (needle.length > haystack.length) return -1;
+    return KMPSearch(needle, haystack)
 };
 
 function computeLPSArray(pat, M, lps)
