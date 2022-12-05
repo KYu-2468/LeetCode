@@ -15,8 +15,7 @@ function pacificAtlantic(grid) {
     for (let col = 0; col < grid[row].length; col++) {
       if (bfs(row, col)) {
         res.push([row, col]);
-        resMap[[row, col]] = true;
-      };
+      }
     }
   }
 
@@ -45,13 +44,33 @@ function pacificAtlantic(grid) {
       if (visited.has(`${r},${c}`)) continue;
       visited.add(`${r},${c}`);
 
-      if (resMap[[r, c]]) return true;
+      if (resMap[[r, c]] === true) return true;
+      if (resMap[[r, c]] === false) continue;
+      if (resMap[[r, c]] === "A") {
+          touchedAtlantic = true;
+          continue
+      };
+        
+      if (resMap[[r, c]] === "P") {
+          touchedPacific = true;
+          continue;
+      };
       
       for (const [rDir, cDir] of dirs) {
         q.push([r + rDir, c + cDir, grid[r][c]])
       }
     }
-    
+      
+    if (touchedPacific && touchedAtlantic) {
+        resMap[[row, col]] = true;
+    } else if (touchedPacific) {
+        resMap[[row, col]] = "P";
+    } else if (touchedAtlantic) {
+        resMap[[row, col]] = "A";
+    } else {
+        resMap[[row, col]] = false;
+    }
+      
     return touchedPacific && touchedAtlantic;
   }
 
