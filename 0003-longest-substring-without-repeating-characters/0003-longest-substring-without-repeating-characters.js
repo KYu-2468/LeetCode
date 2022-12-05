@@ -4,17 +4,17 @@
  */
 var lengthOfLongestSubstring = function(s) {
     let max = 0;
-    let start = 0;
-    const map = {};
+    let l = 0; // left pointer
+    const set = new Set();
     
-    for(let i = 0; i < s.length; i++) {
-        if(map[s[i]] === undefined || map[s[i]] < start) {
-            map[s[i]] = i;
-        } else {
-            start = map[s[i]] + 1;
-            map[s[i]] = i;
+    for (let r = 0; r < s.length; r++) {
+        while (set.has(s[r])) {
+            set.delete(s[l]);
+            l++;
         }
-        max = Math.max(max, i - start + 1);
+        
+        set.add(s[r]);
+        max = Math.max(max, set.size);
     }
     
     return max;
