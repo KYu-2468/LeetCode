@@ -2,21 +2,17 @@
  * @param {number[][]} graph
  * @return {number[][]}
  */
-var allPathsSourceTarget = function(graph, result = [], comb = [0]) {
+var allPathsSourceTarget = function(graph) {
     const res = [];
-
-
-    function dfs(i, currArr) {
-        if (i === graph.length-1) {
-    res.push(currArr);
-    return;
-}
-
-for (let path of graph[i]) {
-        dfs(path, [...currArr, path])
-}
-}
     dfs(0, [0])
+    
     return res;
-
+    
+    function dfs(index, comb) {
+        if (index === graph.length - 1) return res.push(comb);
+        
+        for (const neighbor of graph[index]) {
+            dfs(neighbor, [...comb, neighbor]);
+        }
+    }
 };
